@@ -58,8 +58,6 @@ public class RegistrationActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
         loginTextView = findViewById(R.id.loginTextView);
 
-        RetrofitInstance retrofitInstance = new RetrofitInstance();
-
         adhaarCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
