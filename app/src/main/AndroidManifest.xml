@@ -32,7 +32,8 @@
         <activity android:name=".MainScreenActivity" />
         <activity android:name=".DustBinLocationNavigationActivity" />
         <activity android:name=".PickupRequest" />
-        <activity android:name=".ComplaintActivity"></activity>
+        <activity android:name=".ComplaintActivity" />
+        <activity android:name=".RequestForBinActivity"></activity>
     </application>
 
 </manifest>

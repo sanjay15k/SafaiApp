@@ -33,5 +33,9 @@ public interface ApiInterface {
     @POST("complaint")
     Call<JsonObject> fileAComplaint(@Field("lat") double latitude, @Field("lon") double longitude, @Field("username") String username, @Field("comments") String comments);
 
+    @FormUrlEncoded
+    @POST("requestbin")
+    Call<JsonObject> requestBin(@Field("location") String location, @Field("username") String username);
+
 }
 

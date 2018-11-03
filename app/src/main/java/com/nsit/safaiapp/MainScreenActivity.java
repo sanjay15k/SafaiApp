@@ -45,7 +45,8 @@ public class MainScreenActivity extends AppCompatActivity {
         requestForDustbinCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainScreenActivity.this, RequestForBinActivity.class);
+                startActivity(intent);
             }
         });
 
