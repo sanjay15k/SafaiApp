@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,6 +15,10 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,10 +26,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
 import com.nsit.safaiapp.CommonUtils.RetrofitInstance;
 import com.nsit.safaiapp.DTO.DustbinsLocations;
 import com.nsit.safaiapp.Interface.ApiInterface;
@@ -32,17 +39,21 @@ import com.nsit.safaiapp.Interface.ApiInterface;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 
-public class DustBinLocationNavigationActivity extends FragmentActivity {
+public class DustBinLocationNavigationActivity extends FragmentActivity implements AdapterView.OnItemSelectedListener {
 
     private static final int MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1000;
+    float Zoom = 15;
     private GoogleMap mMap;
     ArrayList<DustbinsLocations> dustbins;
     ArrayList<Marker> markers;
     LatLng myLocation;
     LatLngBounds.Builder builder;
+    private CircleOptions circleOptions;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +63,30 @@ public class DustBinLocationNavigationActivity extends FragmentActivity {
         dustbins = new ArrayList<>();
         markers = new ArrayList<>();
         myLocation = new LatLng(0,0);
+
+        spinner = findViewById(R.id.spinner);
+
+        spinner.setOnItemSelectedListener(this);
+
+        // Spinner Drop down elements
+        List<Integer> distanceValues = new ArrayList<>();
+        distanceValues.add(100);
+        distanceValues.add(200);
+        distanceValues.add(400);
+        distanceValues.add(700);
+        distanceValues.add(1000);
+        distanceValues.add(1200);
+        distanceValues.add(1500);
+
+        // Creating adapter for spinner
+        ArrayAdapter<Integer> dataAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, distanceValues);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+
         fetchDustbin();
     }
 
@@ -60,57 +95,67 @@ public class DustBinLocationNavigationActivity extends FragmentActivity {
         getNearByDustBinCoordinates.execute();
     }
 
-    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
-        int Radius = 6371;// radius of earth in Km
-        double lat1 = StartP.latitude;
-        double lat2 = EndP.latitude;
-        double lon1 = StartP.longitude;
-        double lon2 = EndP.longitude;
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + Math.cos(Math.toRadians(lat1))
-                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
-                * Math.sin(dLon / 2);
-        double c = 2 * Math.asin(Math.sqrt(a));
-        double valueResult = Radius * c;
-        double km = valueResult / 1;
-        DecimalFormat newFormat = new DecimalFormat("####");
-        int kmInDec = Integer.valueOf(newFormat.format(km));
-        double meter = valueResult % 1000;
-        int meterInDec = Integer.valueOf(newFormat.format(meter));
-        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
-                + " Meter   " + meterInDec);
-
-        return Radius * c;
-    }
-
     private void getNearbyDustbin(int i) {
 
-        int radius = getRadius(i);
+        if (mMap != null){
+            mMap.clear();
+        }
+        markers.clear();
 
+        System.out.println("Hey radius is : "+ i);
         for (DustbinsLocations dustbin : dustbins) {
-            if(CalculationByDistance(myLocation,new LatLng(dustbin.getLat(),dustbin.getLon())) < 100000) {
+
+//            System.out.println("Lat1 : "+myLocation.latitude);
+//            System.out.println("Long1 : "+myLocation.longitude);
+//
+//            System.out.println("Lat2 : "+dustbin.getLat());
+//            System.out.println("Long2 : "+dustbin.getLon());
+
+            Location loc1 = new Location("");
+            loc1.setLatitude(myLocation.latitude);
+            loc1.setLongitude(myLocation.longitude);
+
+            Location loc2 = new Location("");
+            loc2.setLatitude(dustbin.getLat());
+            loc2.setLongitude(dustbin.getLon());
+
+            float distanceInMeters = loc1.distanceTo(loc2);
+
+            if( distanceInMeters < i) {
                 Marker marker = mMap.addMarker(
                         new MarkerOptions()
                                 .position(new LatLng(dustbin.getLat(), dustbin.getLon()))
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                                 .visible(true));
                 markers.add(marker);
+                System.out.println("Hey i m in bro");
             }
         }
     }
 
-    private int getRadius(int i) {
-        switch(i) {
-            case 0 :
-                return 200;
-            case 1:
-                return 500;
-            case 2:
-                return 1000;
-        }
-        return -1;
+     private void drawCircle(LatLng point){
+        // Instantiating CircleOptions to draw a circle around the marker
+
+         circleOptions = new CircleOptions();
+
+        // Specifying the center of the circle
+        circleOptions.center(point);
+
+        // Radius of the circle
+        circleOptions.radius(400);
+
+        // Border color of the circle
+        circleOptions.strokeColor(Color.BLACK);
+
+        // Fill color of the circle
+        circleOptions.fillColor(0x30ff0000);
+
+        // Border width of the circle
+        circleOptions.strokeWidth(2);
+
+        // Adding the circle to the GoogleMap
+        mMap.addCircle(circleOptions);
+
     }
 
     @Override
@@ -134,6 +179,17 @@ public class DustBinLocationNavigationActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        int distance = (int) spinner.getItemAtPosition(i);
+        getNearbyDustbin(distance);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
     public class GetNearByDustBinCoordinates extends AsyncTask<Void, Void, Void> {
 
         Context context;
@@ -154,12 +210,6 @@ public class DustBinLocationNavigationActivity extends FragmentActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-//            dustbins.add(new DustbinsLocations(26.8992512, 75.79811839999999));
-//            dustbins.add(new DustbinsLocations(27.0992512, 76.09811839999999));
-//            dustbins.add(new DustbinsLocations(26.9992512, 76.19811839999999));
-//            dustbins.add(new DustbinsLocations(26.9992512, 76.04811839999999));
-//            dustbins.add(new DustbinsLocations(26.9992512, 76.99811839999999));
-//            dustbins.add(new DustbinsLocations(26.9992512, 75.89811839999999));
 
             ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance();
             Call<ArrayList<DustbinsLocations>> getDustbinsLocations = apiInterface.getDustbinsLocatons();
@@ -177,6 +227,7 @@ public class DustBinLocationNavigationActivity extends FragmentActivity {
                 e.printStackTrace();
             }
             return null;
+
         }
 
         @Override
@@ -189,6 +240,7 @@ public class DustBinLocationNavigationActivity extends FragmentActivity {
     public class ReadyMap implements OnMapReadyCallback{
 
         Context context;
+        boolean found = false;
 
         ReadyMap(Context context){
             this.context = context;
@@ -226,20 +278,23 @@ public class DustBinLocationNavigationActivity extends FragmentActivity {
 
                 @Override
                 public void onMyLocationChange(Location arg0) {
-                    if(CalculationByDistance(myLocation, new LatLng(arg0.getLatitude(),arg0.getLongitude())) > 2) {
+                    if(!found) {
                         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(arg0.getLatitude(), arg0.getLongitude()));
-                        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+                        CameraUpdate zoom = CameraUpdateFactory.zoomTo(14);
 
                         mMap.moveCamera(center);
                         mMap.animateCamera(zoom);
-                        myLocation = new LatLng(arg0.getLatitude(), arg0.getLatitude());
+                        myLocation = new LatLng(arg0.getLatitude(), arg0.getLongitude());
+                        drawCircle(myLocation);
+                        System.out.println("Location :" + myLocation.latitude + " " + myLocation.longitude);
+                        found = true;
+                        getNearbyDustbin((Integer) spinner.getSelectedItem());
                     }
                 }
             });
-
-            getNearbyDustbin(0);
         }
     }
+
 
 
 }
