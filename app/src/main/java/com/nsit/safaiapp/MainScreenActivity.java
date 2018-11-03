@@ -52,7 +52,8 @@ public class MainScreenActivity extends AppCompatActivity {
         complaintRegardingRequestCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainScreenActivity.this, ComplaintActivity.class);
+                startActivity(intent);
             }
         });
 

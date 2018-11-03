@@ -25,5 +25,13 @@ public interface ApiInterface {
     @GET("bins")
     Call<ArrayList<DustbinsLocations>> getDustbinsLocatons();
 
+    @FormUrlEncoded
+    @POST("schedulePickup")
+    Call<JsonObject> schedulePickup(@Field("lat") double latitude, @Field("lon") double longitude, @Field("recyclable") double recyclableWeight, @Field("nonRecyclable") double nonRecyclableWeight, @Field("username") String username);
+
+    @FormUrlEncoded
+    @POST("complaint")
+    Call<JsonObject> fileAComplaint(@Field("lat") double latitude, @Field("lon") double longitude, @Field("username") String username, @Field("comments") String comments);
+
 }
 

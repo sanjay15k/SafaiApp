@@ -33,6 +33,11 @@
     <TextView
         android:id="@+id/coordinatesTextView"
         android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:hint="Here you will see your location coordinates"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
@@ -66,13 +71,12 @@
         android:layout_marginTop="40dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:padding="5dp"
             android:text="Non-Recyclable Weight (approx.)"
             android:textColor="#000"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"/>
 
         <EditText
@@ -80,7 +84,7 @@
             android:layout_width="match_parent"
             android:padding="5dp"
             android:hint="in Kg"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
