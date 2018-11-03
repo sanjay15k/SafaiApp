@@ -10,7 +10,7 @@ public class RetrofitInstance {
     public static ApiInterface getRetrofitInstance(){
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://trafficai.grubx.in/api/")
+                .baseUrl("http://safai.grubx.in/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

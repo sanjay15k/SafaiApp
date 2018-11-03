@@ -35,7 +35,7 @@ public class LoginCall extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance();
-        Call<JsonObject> registerUser = apiInterface.loginUser("sanjayk","sanjay123");
+        Call<JsonObject> registerUser = apiInterface.loginUser("check2","check2");
         try {
             JsonObject jsonObject = registerUser.execute().body();
             assert jsonObject != null;
