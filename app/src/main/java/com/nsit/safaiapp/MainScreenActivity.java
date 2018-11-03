@@ -61,7 +61,8 @@ public class MainScreenActivity extends AppCompatActivity {
         markADustbinCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainScreenActivity.this, LocationOfBinNotMarkedActivity.class);
+                startActivity(intent);
             }
         });
 

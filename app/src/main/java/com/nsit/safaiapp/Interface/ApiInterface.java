@@ -37,5 +37,10 @@ public interface ApiInterface {
     @POST("requestbin")
     Call<JsonObject> requestBin(@Field("location") String location, @Field("username") String username);
 
+    @FormUrlEncoded
+    @POST("newbin")
+    Call<JsonObject> newBinNotMarked(@Field("lat") double latitude, @Field("lon") double longitude);
+
+
 }
 

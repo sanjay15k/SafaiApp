@@ -33,7 +33,8 @@
         <activity android:name=".DustBinLocationNavigationActivity" />
         <activity android:name=".PickupRequest" />
         <activity android:name=".ComplaintActivity" />
-        <activity android:name=".RequestForBinActivity"></activity>
+        <activity android:name=".RequestForBinActivity" />
+        <activity android:name=".LocationOfBinNotMarkedActivity"></activity>
     </application>
 
 </manifest>
