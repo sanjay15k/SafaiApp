@@ -1,5 +1,6 @@
 package com.nsit.safaiapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -27,7 +28,8 @@ public class MainScreenActivity extends AppCompatActivity {
         findDustbinCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainScreenActivity.this, DustBinLocationNavigationActivity.class);
+                startActivity(intent);
             }
         });
 
