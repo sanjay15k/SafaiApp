@@ -105,12 +105,6 @@ public class DustBinLocationNavigationActivity extends FragmentActivity implemen
         System.out.println("Hey radius is : "+ i);
         for (DustbinsLocations dustbin : dustbins) {
 
-//            System.out.println("Lat1 : "+myLocation.latitude);
-//            System.out.println("Long1 : "+myLocation.longitude);
-//
-//            System.out.println("Lat2 : "+dustbin.getLat());
-//            System.out.println("Long2 : "+dustbin.getLon());
-
             Location loc1 = new Location("");
             loc1.setLatitude(myLocation.latitude);
             loc1.setLongitude(myLocation.longitude);

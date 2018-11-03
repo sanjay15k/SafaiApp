@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PickupRequest"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:padding="5dp"
+            android:text="Select Location"
+            android:textColor="#000"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"/>
+
+        <Button
+            android:id="@+id/getCoordinatesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Current Location"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/coordinatesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:padding="5dp"
+            android:text="Recyclable Weight (approx.)"
+            android:textColor="#000"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"/>
+
+        <EditText
+            android:id="@+id/recyclableWeightEditText"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:hint="in Kg"
+            android:layout_marginEnd="30dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:padding="5dp"
+            android:text="Non-Recyclable Weight (approx.)"
+            android:textColor="#000"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"/>
+
+        <EditText
+            android:id="@+id/nonRecyclableWeightEditText"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:hint="in Kg"
+            android:layout_marginEnd="20dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sendRequestButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Request"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="#000"
+        android:textColor="#fff"/>
+
+</LinearLayout>

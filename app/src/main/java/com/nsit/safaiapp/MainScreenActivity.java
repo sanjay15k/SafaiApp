@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainScreenActivity extends AppCompatActivity {
 
@@ -36,7 +37,8 @@ public class MainScreenActivity extends AppCompatActivity {
         schedulePickupCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainScreenActivity.this, PickupRequest.class);
+                startActivity(intent);
             }
         });
 
