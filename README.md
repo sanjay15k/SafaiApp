@@ -1,6 +1,14 @@
 # SafaiApp
 Android App targeting Swachh Bharat Mission
 
+## Prerequisites:
+* Android Phone
+* Beacon Device, if not available, use android device as beacon
+
+## Installation:
+* Install the android app APK in your mobile phone.
+* Turn on the Beacon device
+
 ## The Problem that led to the development of this idea:
 * Ineffective allocation of trucks in localities, non regularity of pickup trucks.
 * Most of solid waste management budget is allocated to collection and transportation, leaving very less for processing waste collected in landfills.
@@ -14,6 +22,8 @@ Android App targeting Swachh Bharat Mission
 ## About the App:
 SAFAI is a full stack solution to waste management problems that are emerging these days in metro cities.
 It aims to optimise the waste collection and management systems of the evolving “smart cities” and catering the above cited problems.
+## Setup Instructions:
+* Install the App from the Apk in the repository.
 
 ## Features:
 ### Garbage Pickup Optimised
@@ -22,13 +32,21 @@ Our app will provide users the facility to call for trash pickup truck whenever 
 Users will deposit their trash to the collection boy in two separate bins, recyclable and non recyclable bins. The user will be given incentive based on the weight of recyclable waste he/she deposits and the type of recyclable waste. Users who on the other hand are earning incentive will help us save our labour in separating the trash into recyclable and non recyclable.
 Waste collected on days of parties/marriages is huge in amount. User can schedule a pickup next morning.
 Garbage pickup trucks’ paths have been optimised, to navigate to only the nearest places where bins are located. We achieved this by Clustering the locations of Trash Bins on Google Maps.
-#### Technologies Used:
+#### Technologies/Libraries Used:
+* K-Means Clustering
+* CNN
+* Transfer Learning
+* Djikstra's Algorithm
+
+
 
 
 ### Smart Bins
 Smart Bins will tell automatically if they are full or not. If full, they will be picked first.
 Dustbin fitted with Beacon, generates a response as it fills completely, calling nearby pickup trucks to empty out the bin as soon as  to prevent littering outside the bin. 
 #### Technologies Used:
+* Beacon
+* Bluetooth Beacons - BLE devices
 
 
 ### Dustbin Nearby
@@ -37,15 +55,19 @@ The user can set the maximum radius and get all the dustbins in that radius and 
 There is also a facility to add a new bin that is not present in the database.
 He can also request for a new bin to be installed at a location.
 #### Technologies Used:
+* Google Maps API for android
 
 ### Request Dustbin
 Found a place with trash but no trash bin? Request on the app and we’ll deploy one.
 The user can make a request on the app to install a new dustbin if he thinks there should be a dustbin at his location. The request will be processed if there are no nearby dustbins around the place the user requested for.
-#### Technologies Used:
+
 
 ### Garbage Identification
 Capture image to identify different kinds of waste
-####Technologies Used:
+#### Technologies Used:
+* CNN
+* Transfer Learning
+* TensorFlow
 
 ## Future Plans:
 The following are the features we are planning to add in the future :- 
