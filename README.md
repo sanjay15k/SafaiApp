@@ -22,8 +22,6 @@ Android App targeting Swachh Bharat Mission
 ## About the App:
 SAFAI is a full stack solution to waste management problems that are emerging these days in metro cities.
 It aims to optimise the waste collection and management systems of the evolving “smart cities” and catering the above cited problems.
-## Setup Instructions:
-* Install the App from the Apk in the repository.
 
 ## Features:
 ### Garbage Pickup Optimised
@@ -75,6 +73,13 @@ To enable real time identification of garbage through video surveillance through
 Design a good algorithm to give incentives to users/
 To collaborate with the local network of garbage collectors.
 
-<img src="smiley.gif" alt="Smiley face" height="42" width="42">
+## Developers:
+* Devansh Batra
+* Yash Agarwal
+* Mridul Chaba
+* Sanjay Kumar
+
+This project was a part of TEAM 101's LNMIIT Hacks 3.0 hackathon held in Jaipur 3-4th November, 2018.
+
 
 
